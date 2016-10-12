@@ -5,7 +5,7 @@
 ## 目录
 
 1. [Query Selector](#query-selector)
-1. [CSS & Style](#css-&-style)
+1. [CSS & Style](#css-style)
 1. [DOM Manipulation](#dom-manipulation)
 1. [Ajax](#ajax)
 1. [Events](#events)
