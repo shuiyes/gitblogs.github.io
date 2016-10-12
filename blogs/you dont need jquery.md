@@ -4,7 +4,6 @@
 
 ## 目录
 
-1. [Translations](#translations)
 1. [Query Selector](#query-selector)
 1. [CSS & Style](#css--style)
 1. [DOM Manipulation](#dom-manipulation)
@@ -13,22 +12,6 @@
 1. [Utilities](#utilities)
 1. [Alternatives](#alternatives)
 1. [Browser Support](#browser-support)
-
-## Translations
-
-* [한국어](./README.ko-KR.md)
-* [简体中文](./README.zh-CN.md)
-* [Bahasa Melayu](./README-my.md)
-* [Bahasa Indonesia](./README-id.md)
-* [Português(PT-BR)](./README.pt-BR.md)
-* [Tiếng Việt Nam](./README-vi.md)
-* [Español](./README-es.md)
-* [Русский](./README-ru.md)
-* [Кыргызча](./README-kg.md)
-* [Türkçe](./README-tr.md)
-* [Italiano](./README-it.md)
-* [Français](./README-fr.md)
-* [日本語](./README-ja.md)
 
 ## Query Selector
 
