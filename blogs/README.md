@@ -1,4 +1,4 @@
-## 一个无需生成器的静态 GitHub 博客
+# 一个静态 GitHub 博客
 
 因 `GitHub Pages` 只能托管静态内容，所以以往搭建在 GitHub 上的博客程序多是通过客户端生成 HTML 之后，再同步到 GitHub Pages 上实现的博客功能。妹 Blog 通过 `GitHub HTTP API` 实现了无需客户端转义的纯 MarkDown 博客程序。
 
@@ -8,7 +8,7 @@
 4. 共 `8KB` 大小 
 
 
-## 如何使用 「妹 Blog - GitHub Pages 特别版」
+## 如何使用 「[妹 Blog - GitHub Pages 特别版](https://github.com/itorr/itorr.github.io)」
 
 1. fork 当前分支到个人仓库中，并设置  `github.io` 域名
 2. 修改 `index.html` 中的 `gitConfig.ssh` 地址
