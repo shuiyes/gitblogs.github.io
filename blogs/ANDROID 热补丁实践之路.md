@@ -4,11 +4,11 @@
 
 大约在15年下半年开始，热补丁方案开始大量涌现，一时间热补丁修复技术在 Android 圈非常火爆，比较有代表性的开源实现有 Dexposed、AndFix、Nuwa 以及前段时间微信开源的 Tinker，至于他们的原理以及优缺点比较并不是本文要讲的，网上已经有一大堆资料进行介绍了，感兴趣的可以看下这几篇文章：
 
-[安卓App热补丁动态修复技术介绍](https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&mid=400118620&idx=1&sn=b4fdd5055731290eef12ad0d17f39d4a)
-[Android热补丁之AndFix原理解析](http://w4lle.github.io/2016/03/03/Android%E7%83%AD%E8%A1%A5%E4%B8%81%E4%B9%8BAndFix%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/)
-[Instant Run工作原理及用法中文翻译稿](http://www.jianshu.com/p/2e23ba9ff14b)
-[从Instant run谈Android替换Application和动态加载机制](http://w4lle.github.io/2016/05/02/%E4%BB%8EInstant%20run%E8%B0%88Android%E6%9B%BF%E6%8D%A2Application%E5%92%8C%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/)
-[各大热补丁方案分析和比较](http://blog.zhaiyifan.cn/2015/11/20/HotPatchCompare/)
+  [安卓App热补丁动态修复技术介绍](https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&mid=400118620&idx=1&sn=b4fdd5055731290eef12ad0d17f39d4a)
+  [Android热补丁之AndFix原理解析](http://w4lle.github.io/2016/03/03/Android%E7%83%AD%E8%A1%A5%E4%B8%81%E4%B9%8BAndFix%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/)
+  [Instant Run工作原理及用法中文翻译稿](http://www.jianshu.com/p/2e23ba9ff14b)
+  [从Instant run谈Android替换Application和动态加载机制](http://w4lle.github.io/2016/05/02/%E4%BB%8EInstant%20run%E8%B0%88Android%E6%9B%BF%E6%8D%A2Application%E5%92%8C%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/)
+  [各大热补丁方案分析和比较](http://blog.zhaiyifan.cn/2015/11/20/HotPatchCompare/)
 
 我一直认为对于客户端开发来说热补丁修复技术不是必须的，但是却很有必要的，我们身为开发者虽然都不想自己的程序出 bug，但是没有一个开发人员能保证自己的程序一定不出 bug 的，之前出了问题只能重新发布版本，然后用户下载更新，这个代价还是蛮大的，但是有了热更新技术，这个就变得很简单了。
 
@@ -27,7 +27,7 @@
 今年的9月24号，MDCC 大会上腾讯的 Tinker 终于开源了，我们在第一时间进行了评估。
 
 总体看下来，虽说 Tinker 也有一些限制，但是综合下来优势很明显，下图是微信官方曝出的一张各大热修复方案对比图，看下来很直观：
-![为什么使用tinker]()
+![为什么使用tinker](https://raw.githubusercontent.com/shuiyes/gitblogs.github.io/master/attachments/ANDROID%20%E7%83%AD%E8%A1%A5%E4%B8%81%E5%AE%9E%E8%B7%B5%E4%B9%8B%E8%B7%AF/um_error.png)
 
 除了技术上有优势之外，还有就是微信覆盖的人群太广了，全国几亿人，各种设备都有，在兼容性方面微信肯定是首选考虑的，所以兼容性方面评估下来应该不是问题。
 
