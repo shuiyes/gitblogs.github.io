@@ -14,7 +14,6 @@
 　　废话不多说直接开始单刀直入，以下为Github中国区排行榜前20名详解，除了统计Github的粉丝排行之外，还分析了这20位社区大咖在知乎和微博的活跃度，从数据结果来看，Github排行榜上的诸君都是微博和知乎的技术红人，这也符合我正在写的《技术人员如何建立自己的个人品牌》一文（未发布，加微信可率先查看）。
 
 ## 1、daimajia
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-47b4b3df04012ad9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github daimajia 8697 53
@@ -28,7 +27,6 @@
 　　个人介绍：林惠文，2013年毕业于西北大学，现于北京师范大学读研究生。开源项目小熊词典，AnimeTaste，EverMemo的作者，gank.io发起人。
 
 ## 2、ruanyf
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-e53ada9504d4dc4e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github ruanyf 7348 30
@@ -42,7 +40,6 @@
 　　阮一峰，70后，英文名Frank。他原是上海财经大学世界经济博士研究生。主要研究宏观金融、货币政策与美国经济。于2008年6月获得博士学位，2014年加入支付宝。他本人也是一名IT技术人员，主要关注网站制作，并且对自由软件有着坚定不移的信念。译作：《软件随想录》、《黑客与画家》《异常流行幻象与群众疯狂》《下一个大泡泡》。
 
 ## 3、Trinea
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-0355356d9de80498.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github Trinea 7105 19
@@ -56,7 +53,6 @@
 　　吴更新：2010 年加入阿里巴巴，开始网站工具开发和性能优化工作，现滴滴出行技术专家；Android 开源项目源码解析 codeKK 发起人，热心推动国内 Android 开源发展。
 
 ## 4、JacksonTian
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-a81fc297175f7e56.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github JacksonTian 7008 192
@@ -70,7 +66,6 @@
 　　朴灵，真名田永强，文艺型码农，Node.js布道者。现就职于阿里巴巴数据平台，任资深工程师，著有《深入浅出Node.js》。他活跃于CNode社区，是线下会议NodeParty的组织者，同时也是JSConf China（沪JS、京JS，以及杭JS）的组织者之一。朴灵热爱开源，是多个Node.js模块的作者。名言： 叩首问路，码梦为生。
 
 ## 5、cloudwu
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-733482589e477ea9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github cloudwu 7008 192
@@ -92,7 +87,6 @@
 　　2011年8月下旬从网易离职。吴云洋或将与在2011离职的网易首席运营官詹钟晖一起组建新团队创业。
 
 ## 6、lifesinger
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-12e91df69551ef10.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github lifesinger 6692 1
@@ -106,7 +100,6 @@
 　　玉伯（王保平），淘宝前端类库 KISSY、前端模块化开发框架SeaJS、前端基础类库Arale的创始人。2003-2006 年，中科院物理所研究生，Fortran 与 C 程序员，喜爱实验模拟和数值计算。 2006-2008 年，在中科院软件所互联网实验室从事项目管理软件的研发，C# 与 Java 爱好者。 2008 年 4 月份加入淘宝，就职于 UED 部门。2009 年起，组建前端架构团队，在首页维护、全网性能优化、类库研发、知识沉淀、工具应用等方面取得了丰硕成果。
 
 ## 7、michaelliao
-
 　　Github michaelliao 5761 47
 
 　　知乎 廖雪峰 10101 167 3215 721
@@ -118,7 +111,6 @@
 　　技术作家，著有《Spring 2.0核心技术与最佳实践》
 
 ## 8、laruence
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-995d50729d79a0b0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github laruence 5252 33
@@ -134,7 +126,6 @@
 　　惠新宸：我也曾经是“不适合”编程的人（图灵访谈）
 
 ## 9、ibireme
-
 　　Github ibireme 5133 17
 
 　　知乎
@@ -146,7 +137,6 @@
 　　90后
 
 ## 10、Evan You
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-20520403f934d239.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github yyx990803 4873 92
@@ -160,7 +150,6 @@
 　　本名尤雨溪，目前在 Google Creative Lab 就职。vue.js 项目作者。
 
 ## 11、CoderMJLee
-
 　　Github CoderMJLee 4713 4
 
 　　知乎
@@ -172,7 +161,6 @@
 　　小码哥 CEO
 
 ## 12、sofish
-
 　　Github sofish 4358 34
 
 　　知乎 sofish 5001 65 2514 465
@@ -184,7 +172,6 @@
 　　林建锋，国内资深前端开发工程师，Web 标准布道者，前支付宝前端开发部 CSS 样式库负责人。Trimidea 创始人，目前就职饿了么（了解博主近况的时候，博主跟我说已经很久木有写代码了，让大家不要别像 他一样，不写代码从 3 跌到 12，这段话给如此严肃的一个分析文章带来了一丝逗比风，更新下，小鱼骗我说他转行了，呜呜呜，今晚大家说他去饿了么）
 
 ## 13、astaxie
-
 　　Github astaxie 4336 65
 
 　　知乎 asta谢 1924 17 1259 397
@@ -198,7 +185,6 @@
 　　相关新闻：采访：关于Go语言和《Go Web编程》
 
 ## 14、stormzhang
-
 　　Github stormzhang 3611 23
 
 　　知乎 stormzhang 8888 304 12675 3542
@@ -211,7 +197,6 @@
 
 
 ## 15、tangqiaoboy
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-5f7fb187e8da3b02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github tangqiaoboy 3501 37
@@ -226,7 +211,6 @@
 
 
 ## 16、RubyLouvre
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-5c4629cee04fe9bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github RubyLouvre 3460 86
@@ -241,7 +225,6 @@
 
 
 ## 17、justjavac
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-51d5779d7f677887.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github justjavac 3447 35
@@ -256,7 +239,6 @@
 
 
 ## 18、wintercn
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-b2b7adf7621fc24e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github wintercn 3325 30
@@ -274,7 +256,6 @@
 
 
 ## 19、ChenYilong
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-f3aba640b09bff2b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github ChenYilong 3272 39
@@ -291,7 +272,6 @@
 
 
 ## 20、fouber
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-ad7782eee641f1b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github fouber 3297 126
@@ -306,7 +286,6 @@
 
 
 ## 22、lepture
-
 　　Github lepture 3212 154
 
 　　知乎
@@ -319,7 +298,6 @@
 
 
 ## 23、phodal
-
 　　Github phodal 2988 86
 
 　　知乎 phodal 3116 487 5338 1351
@@ -332,7 +310,6 @@
 　　
 ## 知乎三大软狗：
 ### 21、JeffreyZhao
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-c888acfa46113b78.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github JeffreyZhao 2524 29
@@ -346,7 +323,6 @@
 　　赵劼，网名老赵，洋名Jeffrey Zhao，花名赵姐夫，金融行业程序员，Wind.js类库作者，多年微软MVP，InfoQ中文站兼职编辑，目前就职于摩根大通（香港）。知乎“温赵轮”三大软狗之一。（老赵一直叨唠要去美利坚，不知道近况如何了）
 
 ### vczh
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-19ff31138d1afa10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github JeffreyZhao 5032
@@ -362,7 +338,6 @@
 
 ## Ruby二侠
 ### 27、huacnlee
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-5c861dab40127be4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github huacnlee 2102 90
@@ -375,9 +350,7 @@
 
 　　李华顺，者也(zheye.org)创始人之一，淘宝MED团队成员，Ruby China 创始人。2015 年加入支付宝，参与内部 Node.js 框架开发，并负责阿里集团 GitLab 维护和开发工作。
 
-
 ## 46、chloerei
-
 　　Github chloerei 1560 39
 
 　　知乎
@@ -389,7 +362,6 @@
 　　黄增光，网名 Rei，广西梧州人，现居深圳。Web 开发者，擅长 Ruby，开源项目Writings.io作者，Ruby China 管理员。
 
 ## 69、hzlzh
-
 　　![图片](http://upload-images.jianshu.io/upload_images/1846413-b3e322d9af582ac2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 　　Github hzlzh 1028 74
