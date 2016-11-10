@@ -14,6 +14,7 @@
 　　废话不多说直接开始单刀直入，以下为Github中国区排行榜前20名详解，除了统计Github的粉丝排行之外，还分析了这20位社区大咖在知乎和微博的活跃度，从数据结果来看，Github排行榜上的诸君都是微博和知乎的技术红人，这也符合我正在写的《技术人员如何建立自己的个人品牌》一文（未发布，加微信可率先查看）。
 
 ## 　　1：daimajia
+
 ![图片](http://upload-images.jianshu.io/upload_images/1846413-47b4b3df04012ad9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 　　
 　　Github daimajia 8697 53
