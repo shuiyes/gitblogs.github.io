@@ -9,16 +9,24 @@
 
 FLAG=0
 
-while true 
+D=$(date +%M)
+echo $D
+
+while true
 do
     FLAG=$[$FLAG+1]
+
     date +%H:%M:%S
-    # 每天 9：45 或开机后2分钟(测试用) 设置 Bing 每日图片为壁纸
+    # 每天 9：45 或开机后2分钟(测试用) 设置 Bing 今日图片为壁纸
     if [[ $(date +%H:%M:%S) =~ "09:45:" || $FLAG == 2 ]];then
         echo "now start set bing image to wallpaper."
-        /usr/bin/php /usr/local/bing/bing.php
+        /usr/bin/php /usr/local/bing/bing.php 0
         #break
-    fi 
+    # 而后每小时 随机设置 Bing 每日图片为壁纸
+    elif [[ $(date +%M) == $D ]];then
+        echo "hour start set bing image to wallpaper."
+        /usr/bin/php /usr/local/bing/bing.php
+    fi
     sleep 60
 done
 ```
@@ -26,7 +34,7 @@ done
 ## bing.php
 
     shell 脚本中无法获取网页内容，这里写了各php 脚本来运行。
-    包括 Bing api 解析图片地址和图片下载到本地，最后用 gsettings 来设置壁纸
+    包括 Bing api 解析图片地址和图片下载到本地，并在图片底部添加文字 copyright（文字颜色取自图片主色调的反色），最后用 gsettings 来设置壁纸
 
 ```
 #!/usr/bin/php -q
@@ -153,7 +161,7 @@ if($isSurportImagick){
             
             $total++;
         }
-    }
+    }  
     
 }
 
@@ -189,7 +197,11 @@ function error(){
 //var_dump($argv);
 
 $day = 0;
-if(count($argv) > 1) $day = $argv[1];
+if(count($argv) > 1){
+    $day = $argv[1];
+}else{
+    $day = mt_rand(0,18);
+}
 echo "day: ".$day."\n";
 $bingApi = 'http://cn.bing.com/HPImageArchive.aspx?format=js&idx='.$day.'&n=1';
 
@@ -210,10 +222,11 @@ $filename = pathinfo($url,PATHINFO_BASENAME);
 $path = "/home/archermind/Pictures/";
 $file = $path.$filename;
 
-if(down($url, $file)){
-    echo $filename."\n";
-    echo $copyright."\n";
-
+if(file_exists($file)){
+    echo $file." exist, now set to wallpaper.\n";
+    system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri file://".$file);
+    exit(0);
+}else if(down($url, $file)){
     $color = getImageColor($file);
 
     echo $color['R']." - ".$color['G']." - ".$color['B']."\n";
@@ -224,6 +237,7 @@ if(down($url, $file)){
     $obj->fontMark(1920/2,1080-40,$path.'xingshu.ttf',array($inverse[0], $inverse[1], $inverse[2]),$copyright);
     $obj->show(false);
 
+    echo "added watermark of ".$copyright.", now set to wallpaper.\n";
     system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri file://".$file);
     exit(0);
 }else{
