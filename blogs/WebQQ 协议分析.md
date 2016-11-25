@@ -4,9 +4,9 @@
 
 ### 项目地址
 
-[ScienJus/qqbot 基于Smart QQ（Web QQ）的QQ机器人](https://github.com/ScienJus/qqbot)
-
-[Mojo-Webqq perl语言](https://github.com/sjdy521/Mojo-Webqq/)
+[ScienJus/qqbot Ruby](https://github.com/ScienJus/qqbot)
+[sjdy521/Mojo-Webqq Perl](https://github.com/sjdy521/Mojo-Webqq/)
+[b3log/xiaov Java](https://github.com/b3log/xiaov)
 
 ### 对Web QQ协议的一些看法
 
@@ -32,6 +32,7 @@
 - 如果请求参数中有t，当前版本不会检验它的值，所以我统一设为0.1，但是实际上它的值一般情况下均为当前时间的unix timestamp
 - 如果返回的返回的错误码为1000003，很有可能是你的请求频率过于频繁
 了解了以上信息后，便可以开始愉快地写接口了
+
 
 ## （二）：登录
 
@@ -149,6 +150,7 @@ referer：[http://d1.web2.qq.com/proxy.html?v=20151105001&callback=1&id=2]()
 * clientid：固定值为53999199
 
 登录成功后一般可以维持2天左右，并且如今Web QQ是不会出现顶号情况的，但是多终端登录后在接收消息等接口可能会出现冲突的情况
+
 
 ## （三）：收发消息
 
@@ -418,6 +420,7 @@ referer：[http://d1.web2.qq.com/proxy.html?v=20151105001&callback=1&id=2]()
     "psessionid": "#{psessionid}",
 }
 ```
+
 
 ## （四）：好友相关
 
@@ -697,6 +700,7 @@ referer：[http://s.web2.qq.com/proxy.html?v=20130916001&callback=1&id=1]()
 }
 ```
 
+
 ## （五）：群和讨论组相关
 
 ### 获取群列表
@@ -875,7 +879,8 @@ referer：[http://d1.web2.qq.com/proxy.html?v=20151105001&callback=1&id=2]()
 
 info为讨论组资料，mem_info为讨论组成员的信息，mem_status为登录状态，基本和群信息的格式差不多
 
-##（六）：其他
+
+## （六）：其他
 
 ### 获取最近会话列表
 
