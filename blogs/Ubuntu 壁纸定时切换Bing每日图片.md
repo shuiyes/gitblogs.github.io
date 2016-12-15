@@ -17,8 +17,11 @@ do
     FLAG=$[$FLAG+1]
 
     date +%H:%M:%S
+
+	if [[ $FLAG == 1 ]];then
+		echo "ignore"
     # 每天 9：45 或开机后2分钟(测试用) 设置 Bing 今日图片为壁纸
-    if [[ $(date +%H:%M:%S) =~ "09:45:" || $FLAG == 2 ]];then
+    elif [[ $(date +%H:%M:%S) =~ "09:45:" || $FLAG == 2 ]];then
         echo "now start set bing image to wallpaper."
         /usr/bin/php /usr/local/bing/bing.php 0
         #break
@@ -55,17 +58,17 @@ class Image_class {
     $this->path = $src;
   }
 
+  // 添加水印
   public function fontMark($x,$y,$font,$color,$text){
     $col = imagecolorallocate($this->image,$color[0],$color[1],$color[2]);
     
     // 无法改变文字大小
     //imagestring($this->image,5,$x,$y,$text,$col);
-    $testSize = strlen($text)*10;
-    $x = $x - $testSize/2;
     imagettftext($this->image, 20, 0, $x,$y, $col , $font, $text);
 
   }
 
+  // 显示图片or存储
   public function show($show){
     if($show){
         header('content-type:' . $this -> info['mime']);
@@ -81,11 +84,12 @@ class Image_class {
   }
 }
 
+// 下载
 function down($url, $file="", $timeout=60) {
   $file = empty($file) ? pathinfo($url,PATHINFO_BASENAME) : $file;
   
   if(function_exists('curl_init')) {
-    echo "curl download to save ".$file."\n";
+    echo "curl download ".$file."\n";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
@@ -97,7 +101,7 @@ function down($url, $file="", $timeout=60) {
       return false;
     }
   } else {
-    echo "stream download to save ".$file."\n";
+    echo "stream_context_create download ".$file."\n";
     $opts = array("http"=>array("method"=>"GET","header"=>"","timeout"=>$timeout));
     $context = stream_context_create($opts);
     if(@copy($url, $file, $context)) {
@@ -108,11 +112,13 @@ function down($url, $file="", $timeout=60) {
   }
 }
 
-function getImageColor($url){
+// 获取图片主色调
+function getImageColor($url, $xPos, $yPos){
+
 $isSurportImagick = class_exists('Imagick');
 $total = 0;
 if($isSurportImagick){
-
+echo "Surport Imagick.\n";
     $average = new Imagick($url);
     $average->quantizeImage( 10, Imagick::COLORSPACE_RGB, 0, false, false );
     $average->uniqueImageColors();
@@ -140,14 +146,18 @@ if($isSurportImagick){
     }
 
 }else{
-
-	$i = imagecreatefromjpeg($url);
+    echo "not Surport Imagick.\n";
+    $i = imagecreatefromjpeg($url);
     if(!$i) $i = imagecreatefrompng($url);
     
     $rColor = $gColor = $bColor = 0;
-    for ($x=0;$x<imagesx($i);$x++) {
+
+    echo 'width: '.imagesx($i).', height: '.imagesy($i).".\n";
+    echo '('.$xPos.','.$yPos.','.(imagesx($i)-$xPos).','.($yPos+20).")\n";
+
+    for ($x=$xPos;$x<(imagesx($i)-$xPos);$x++) {
         
-        for ($y=0;$y<imagesy($i);$y++) {
+        for ($y=$yPos;$y<($yPos+20);$y++) {
             
             $rgb = imagecolorat($i,$x,$y);
             
@@ -178,14 +188,132 @@ $res['B'] = $b;
 return $res;
 }
 
+// 颜色取反
 function getInverse($color){
     $r = $color['R'];
-    $r = $r>100?($r>=120?($r<150?0:255-$r):255):255-$r;
+    $r = $r>100?($r>=100?($r<=155?0:255-$r):255):255-$r;
+
     $g = $color['G'];
-    $g = $g>100?($g>=120?($g<150?0:255-$g):255):255-$g;
-    $b = $color['B'];
-    $b = $b>100?($b>=120?($b<150?0:255-$b):255):255-$b;
+    $g = $g>100?($g>=100?($g<=155?0:255-$g):255):255-$g;
+
+    $b = $color['B'];    
+    $b = $b>100?($b>=100?($b<=155?0:255-$b):255):255-$b;
+
     return array($r,$g,$b);
+}
+
+function optim($rgb){
+    return ($rgb >= 175) ? 255 : (($rgb <= 80) ? 0 : $rgb);
+}
+
+// 175 -> 255, 80 -> 0
+function optimize1($color){
+    $r = optim($color[0]);
+    $g = optim($color[1]);
+    $b = optim($color[2]);
+
+    return array($r,$g,$b);
+}
+
+// 取rgb 中最大值并置为 255， 使颜色明显
+function optimize2($color){
+    $r = $color[0];
+    $g = $color[1];
+    $b = $color[2];
+
+    $find = false;
+    if($r == 255 || $g == 255 || $b == 255){
+        $find = true;
+    }
+    if($find){
+        if($r != 255) $r = 0;
+        if($g != 255) $g = 0;
+        if($b != 255) $b = 0;
+    }else if($r == 0 && $g == 0 && $b == 0){
+        //ignore
+    }else{
+        if($r > $g){
+            if($r>$b){
+                $tmp = 0;
+                if($r > 120) $tmp = 255;
+                $r=$tmp;
+                $g=($r-$g<=5)?$tmp:0;
+                $b=($r-$b<=5)?$tmp:0;
+            }else{
+                if($g>$b){
+                    $tmp = 0;
+                    if($g > 120) $tmp = 255;
+                    $r=($g-$r<=5)?$tmp:0;
+                    $g=$tmp;
+                    $b=($g-$b<=5)?$tmp:0;
+                }else{
+                    echo 'b';
+                    $tmp = 0;
+                    if($b > 120) $tmp = 255;
+                    $r=($b-$r<=5)?$tmp:0;
+                    $g=($b-$g<=5)?$tmp:0;
+                    $b=$tmp;
+                }
+            }
+        }else{
+            if($g>$b){
+                $tmp = 0;
+                if($g > 120) $tmp = 255;
+                $r=($g-$r<=5)?$tmp:0;
+                $g=$tmp;
+                $b=($g-$b<=5)?$tmp:0;
+            }else{
+                if($b>$r){
+                    $tmp = 0;
+                    if($b > 120) $tmp = 255;
+                    $r=($b-$r<=5)?$tmp:0;
+                    $g=($b-$g<=5)?$tmp:0;
+                    $b=$tmp;
+                }else{
+                    $tmp = 0;
+                    if($r > 120) $tmp = 255;
+                    $r=$tmp;
+                    $g=($r-$g<=5)?$tmp:0;
+                    $b=($r-$b<=5)?$tmp:0;
+                }
+            }
+        }
+    }
+
+    return array($r,$g,$b);
+}
+
+// 裁剪（裁剪文字颜色区域可知其坐标）
+function crop($filename,$x,$y,$w,$h){
+
+    $im = imagecreatefromjpeg($filename); 
+
+    $newim = imagecreatetruecolor($w, $h); 
+
+    imagecopyresampled($newim, $im, 0, 0, $x, $y, $w, $h, $w, $h); 
+
+    $save = '/home/archermind/Pictures/bing/test.jpeg'; 
+    ImageJpeg($newim,$save,100); 
+
+    imagedestroy($newim); 
+    imagedestroy($im);
+}
+
+
+function getCopyrightTextSize($copyright){
+    $textSize = 0;
+    for($i = 0; $i < strlen($copyright); $i++){
+        
+        $ascci = ord($copyright[$i]);
+        echo $i.' > '.$ascci."\n";
+
+        if(($ascci > 64 && $ascci < 91) || ($ascci > 96 && $ascci < 123) || $ascci == 47){
+            $textSize += 12.5;
+        }else{
+            $textSize += 25;
+        }
+    }
+    return $textSize;
 }
 
 function error(){
@@ -198,12 +326,14 @@ function error(){
 
 $day = 0;
 if(count($argv) > 1){
+    // 参数1 为 天数
     $day = $argv[1];
 }else{
+    // 没有去随机数
     $day = mt_rand(0,18);
 }
 echo "day: ".$day."\n";
-$bingApi = 'http://cn.bing.com/HPImageArchive.aspx?format=js&idx='.$day.'&n=1';
+$bingApi = 'http://cn.bing.com/HPImageArchive.aspx?format=js&n=1&idx='.$day;
 
 $res = file_get_contents($bingApi);
 
@@ -219,23 +349,51 @@ $url = $img1->{"url"};
 $copyright = $img1->{"copyright"};
 
 $filename = pathinfo($url,PATHINFO_BASENAME);
-$path = "/home/archermind/Pictures/";
+$path = "/home/archermind/Pictures/bing/";
 $file = $path.$filename;
 
+// 文件存在，直接设置壁纸
 if(file_exists($file)){
     echo $file." exist, now set to wallpaper.\n";
     system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri file://".$file);
     exit(0);
-}else if(down($url, $file)){
-    $color = getImageColor($file);
-
-    echo $color['R']." - ".$color['G']." - ".$color['B']."\n";
-    $inverse = getInverse($color);
-    echo $inverse[0]." - ".$inverse[1]." - ".$inverse[2]."\n";
+}
+// 不存在，则现下载
+else if(down($url, $file)){
     
+    // 文字的宽度(模糊值)
+    $testSize = strlen($copyright)*11;
+    //$testSize = getCopyrightTextSize($copyright);
+    $x = (1920 - $testSize)/2;
+    $y = 1080-40;
+
+    // 图片主颜色，文字区域的
+    $color = getImageColor($file, $x, $y-20);
+    echo $color['R']." - ".$color['G']." - ".$color['B']."\n";
+
+    // 颜色取反
+    $inverse = getInverse($color);
+    /*
+    $inverse = array();
+    $inverse[0] = $color['R'];
+    $inverse[1] = $color['G'];
+    $inverse[2] = $color['B'];
+    */
+    echo $inverse[0]." - ".$inverse[1]." - ".$inverse[2]."\n";
+
+    // 175 -. 255， 80 -> 0
+    $inverse = optimize1($inverse);
+    echo $inverse[0]." - ".$inverse[1]." - ".$inverse[2]."\n";
+
+    // 取rgb 中最大值并置为 255， 使颜色明显
+    $inverse = optimize2($inverse);
+    echo $inverse[0]." - ".$inverse[1]." - ".$inverse[2]."\n";
+
     $obj = new Image_class($file);
-    $obj->fontMark(1920/2,1080-40,$path.'xingshu.ttf',array($inverse[0], $inverse[1], $inverse[2]),$copyright);
+    $obj->fontMark($x,$y,$path.'xingshu.ttf',array($inverse[0], $inverse[1], $inverse[2]),$copyright);
     $obj->show(false);
+
+    crop($file,$x,$y-20,$testSize,25);
 
     echo "added watermark of ".$copyright.", now set to wallpaper.\n";
     system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri file://".$file);
@@ -244,7 +402,10 @@ if(file_exists($file)){
     echo "down ".$url." error, try again.\n";
     error(); 
 }
+
+
 ?>
+
 ```
 
 ## 开机启动爬坑记录
