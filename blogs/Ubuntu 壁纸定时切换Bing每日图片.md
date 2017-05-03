@@ -64,7 +64,9 @@ class Image_class {
     
     // 无法改变文字大小
     //imagestring($this->image,5,$x,$y,$text,$col);
-    imagettftext($this->image, 20, 0, $x,$y, $col , $font, $text);
+
+    //ImageTTFText(int im, int size, int angle, int x, int y, int col, string fontfile, string text);
+    ImageTTFText($this->image, 20, 0, $x,$y, $col , $font, $text);
 
   }
 
@@ -191,19 +193,25 @@ return $res;
 // 颜色取反
 function getInverse($color){
     $r = $color['R'];
-    $r = $r>100?($r>=100?($r<=155?0:255-$r):255):255-$r;
+    //$r = $r>100?($r>=100?($r<=155?0:255-$r):255):255-$r;
 
     $g = $color['G'];
-    $g = $g>100?($g>=100?($g<=155?0:255-$g):255):255-$g;
+    //$g = $g>100?($g>=100?($g<=155?0:255-$g):255):255-$g;
 
     $b = $color['B'];    
-    $b = $b>100?($b>=100?($b<=155?0:255-$b):255):255-$b;
+    //$b = $b>100?($b>=100?($b<=155?0:255-$b):255):255-$b;
+
+    if(($r+$g+$b) > 350){
+        $r = 0;$g = 0;$b = 0;
+    }else{
+        $r = 255;$g = 255;$b = 255;
+    }
 
     return array($r,$g,$b);
 }
 
 function optim($rgb){
-    return ($rgb >= 175) ? 255 : (($rgb <= 80) ? 0 : $rgb);
+    return ($rgb >= 170) ? 255 : (($rgb <= 85) ? 0 : $rgb);
 }
 
 // 175 -> 255, 80 -> 0
@@ -232,51 +240,14 @@ function optimize2($color){
     }else if($r == 0 && $g == 0 && $b == 0){
         //ignore
     }else{
-        if($r > $g){
-            if($r>$b){
-                $tmp = 0;
-                if($r > 120) $tmp = 255;
-                $r=$tmp;
-                $g=($r-$g<=5)?$tmp:0;
-                $b=($r-$b<=5)?$tmp:0;
-            }else{
-                if($g>$b){
-                    $tmp = 0;
-                    if($g > 120) $tmp = 255;
-                    $r=($g-$r<=5)?$tmp:0;
-                    $g=$tmp;
-                    $b=($g-$b<=5)?$tmp:0;
-                }else{
-                    echo 'b';
-                    $tmp = 0;
-                    if($b > 120) $tmp = 255;
-                    $r=($b-$r<=5)?$tmp:0;
-                    $g=($b-$g<=5)?$tmp:0;
-                    $b=$tmp;
-                }
-            }
+        if($r > $g && $r > $b){
+            $r = 255; $g = 0; $b = 0;
+        }else if($g > $r && $g > $b){
+            $r = 0; $g = 255; $b = 0;
+        }else if($b > $r && $b > $g){
+            $r = 0; $g = 0; $b = 255;
         }else{
-            if($g>$b){
-                $tmp = 0;
-                if($g > 120) $tmp = 255;
-                $r=($g-$r<=5)?$tmp:0;
-                $g=$tmp;
-                $b=($g-$b<=5)?$tmp:0;
-            }else{
-                if($b>$r){
-                    $tmp = 0;
-                    if($b > 120) $tmp = 255;
-                    $r=($b-$r<=5)?$tmp:0;
-                    $g=($b-$g<=5)?$tmp:0;
-                    $b=$tmp;
-                }else{
-                    $tmp = 0;
-                    if($r > 120) $tmp = 255;
-                    $r=$tmp;
-                    $g=($r-$g<=5)?$tmp:0;
-                    $b=($r-$b<=5)?$tmp:0;
-                }
-            }
+            $r = 0; $g = 0; $b = 0;
         }
     }
 
@@ -325,15 +296,21 @@ function error(){
 //var_dump($argv);
 
 $day = 0;
+$n = 1;
 if(count($argv) > 1){
     // 参数1 为 天数
     $day = $argv[1];
 }else{
-    // 没有去随机数
-    $day = mt_rand(0,18);
+    // 没有取随机数
+    $day = mt_rand(0,14);
 }
-echo "day: ".$day."\n";
-$bingApi = 'http://cn.bing.com/HPImageArchive.aspx?format=js&n=1&idx='.$day;
+//bing 最多只能取前7天的数据（每次可取8天数据，所以最多前15天数据）
+if($day > 7) {
+    $n = $day - 6;
+    $day = 7;
+}
+$bingApi = 'http://cn.bing.com/HPImageArchive.aspx?format=js&n='.$n.'&idx='.$day;
+echo $bingApi."\n";
 
 $res = file_get_contents($bingApi);
 
@@ -344,9 +321,16 @@ if(!$res){
 
 $arr = json_decode($res);
 
-$img1 = $arr->{"images"}[0];
+$img1 = $arr->{"images"};
+$img1 = $img1[count($img1)-1];
 $url = $img1->{"url"};
 $copyright = $img1->{"copyright"};
+
+echo $img1->{"startdate"}."\n";
+
+if(strpos($url,'http://cn.bing.com/') === false){
+    $url = 'http://cn.bing.com'.$url;
+}
 
 $filename = pathinfo($url,PATHINFO_BASENAME);
 $path = "/home/archermind/Pictures/bing/";
@@ -373,27 +357,23 @@ else if(down($url, $file)){
 
     // 颜色取反
     $inverse = getInverse($color);
-    /*
-    $inverse = array();
-    $inverse[0] = $color['R'];
-    $inverse[1] = $color['G'];
-    $inverse[2] = $color['B'];
-    */
     echo $inverse[0]." - ".$inverse[1]." - ".$inverse[2]."\n";
 
-    // 175 -. 255， 80 -> 0
+/*
+    // 175 -> 255， 80 -> 0
     $inverse = optimize1($inverse);
     echo $inverse[0]." - ".$inverse[1]." - ".$inverse[2]."\n";
 
     // 取rgb 中最大值并置为 255， 使颜色明显
     $inverse = optimize2($inverse);
     echo $inverse[0]." - ".$inverse[1]." - ".$inverse[2]."\n";
+*/
 
     $obj = new Image_class($file);
-    $obj->fontMark($x,$y,$path.'xingshu.ttf',array($inverse[0], $inverse[1], $inverse[2]),$copyright);
+    $obj->fontMark($x,$y,$path.'xingshu.ttf',$inverse,$copyright);
     $obj->show(false);
 
-    crop($file,$x,$y-20,$testSize,25);
+    //crop($file,$x,$y-20,$testSize,25);
 
     echo "added watermark of ".$copyright.", now set to wallpaper.\n";
     system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri file://".$file);
@@ -402,7 +382,6 @@ else if(down($url, $file)){
     echo "down ".$url." error, try again.\n";
     error(); 
 }
-
 
 ?>
 
