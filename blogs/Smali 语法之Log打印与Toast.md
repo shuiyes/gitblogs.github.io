@@ -1,4 +1,4 @@
-#Smali语法 log打印 与 Toast
+# Smali语法 log打印 与 Toast
 
 ```
 public void a(Uri u){
