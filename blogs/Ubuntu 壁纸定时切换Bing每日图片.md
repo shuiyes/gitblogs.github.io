@@ -9,29 +9,33 @@
 
 FLAG=0
 
-D=$(date +%M)
-echo $D
-
 while true
 do
     FLAG=$[$FLAG+1]
 
     date +%H:%M:%S
 
-	if [[ $FLAG == 1 ]];then
-		echo "ignore"
-    # 每天 9：45 或开机后2分钟(测试用) 设置 Bing 今日图片为壁纸
-    elif [[ $(date +%H:%M:%S) =~ "09:45:" || $FLAG == 2 ]];then
-        echo "now start set bing image to wallpaper."
+    # 开机后2分钟(测试用),设置今日壁纸
+    if [[ $FLAG == 3 ]];then
+        echo "test to set bing image to wallpaper."
         /usr/bin/php /usr/local/bing/bing.php 0
-        #break
-    # 而后每小时 随机设置 Bing 每日图片为壁纸
-    elif [[ $(date +%M) == $D ]];then
-        echo "hour start set bing image to wallpaper."
+    # 整点，随机设置2星期内壁纸
+    elif [[ $(date +%M:%S) =~ "00:"]];then
+        echo "time to set bing image to wallpaper."
         /usr/bin/php /usr/local/bing/bing.php
+        #break
     fi
     sleep 60
 done
+
+#D=$(date +%M)
+#echo $D
+#if [[ $FLAG == 1 ]];then
+    #echo "ignore"
+    # 而后每小时 随机设置 Bing 每日图片为壁纸
+#elif [[ $(date +%M) == $D ]];then
+    #echo "hour start set bing image to wallpaper."
+    #/usr/bin/php /usr/local/bing/bing.php
 ```
 
 ## bing.php
