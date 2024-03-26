@@ -18,6 +18,7 @@
       AuthType Basic
       AuthName "Gerrit Code Review"
       AuthBasicProvider file
+      # Must be under the www directory, otherwise cannot access
       AuthUserFile "/www/server/gerrit/.htpasswd"
       Require valid-user
     </Location>
