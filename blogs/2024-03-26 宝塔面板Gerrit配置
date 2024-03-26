@@ -1,0 +1,93 @@
+# 宝塔面板Gerrit配置
+
+站点配置文件如下：
+
+```
+<VirtualHost *:80>
+    ServerAdmin gerrit@shuiyes.com
+    ServerName gerrit
+    ServerAlias gerrit.shuiyes.com
+    ErrorLog "/www/wwwlogs/gerrit.shuiyes.com-error_log"
+    CustomLog "/www/wwwlogs/gerrit.shuiyes.com-access_log" combined
+
+    ProxyRequests Off
+    ProxyPreserveHost On
+    AllowEncodedSlashes On
+
+    <Location /login/>
+      AuthType Basic
+      AuthName "Gerrit Code Review"
+      AuthBasicProvider file
+      AuthUserFile "/www/server/gerrit/.htpasswd"
+      Require valid-user
+    </Location>
+    
+    ProxyPass / http://127.0.0.1:8091/ nocanon
+    ProxyPassReverse / http:/127.0.0.1:8091/ nocanon
+</VirtualHost>
+```
+
+## 附：Gerrit 默认配置
+
+gerrit.config：
+
+```
+[gerrit]
+	basePath = git
+	serverId = 6020c5c3-de35-4389-88d2-8fbd3ca8ac03
+	canonicalWebUrl = http://gerrit.shuiyes.com/
+[database]
+	type = h2
+	database = /home/gerrit/gerrit_site/db/ReviewDB
+[auth]
+	type = HTTP
+[receive]
+	enableSignedPush = true
+[sendemail]
+	enable = true
+        smtpServer = smtp.qiye.aliyun.com
+        smtpServerPort = 465
+        smtpUser = gerrit@shuiyes.com
+        smtpPass = ****
+        smtpEncryption = SSL
+        sslVerify = true
+        from = Gerrit<gerrit@shuiyes.com>
+[container]
+	user = gerrit
+	javaHome = /usr/local/btjdk/jdk8/jre
+[sshd]
+	listenAddress = *:29418
+[httpd]
+	listenUrl = http://*:8091/
+[cache]
+	directory = cache
+[gitweb]
+    type = gitweb
+    cgi = /var/www/git/gitweb.cgi
+```
+
+## 另：git clone 失败问题
+
+问题：服务器组权限29418端口确认已开放，在本地执行“git clone”命令拉取代码时报错
+问题现象：提示“Could not read from remote repository.”
+
+```
+git clone "ssh://admin@192.168.16.101:29418/testrepo"
+Cloning into 'testrepo'...
+ssh: connect to host 192.168.16.101 port 29418: Connection timed out
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+问题分析：经排查，确认防火墙未开放端口，网络不通导致。
+处理方法：防火墙开放端口，重新拉取代码。
+
+```
+[gerrit@aliyun ~]$ sudo firewall-cmd --zone=public --permanent --add-port=29418/tcp
+success
+[gerrit@aliyun ~]$ sudo firewall-cmd --reload
+success
+[gerrit@aliyun ~]$
+```
